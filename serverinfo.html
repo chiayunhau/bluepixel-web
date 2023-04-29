@@ -131,20 +131,20 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
-        // Define a function to fetch the CPU usage and update the display
-        function updateCpuUsage() {
-            const cors_api_url = 'https://cors-anywhere.herokuapp.com/';
-            const api_url = 'https://ctrl.cxmpute.com/api/client/servers/b3683f94-64d0-42ce-94ed-735fe30a8540/resources';
-            fetch(cors_api_url + api_url)
-            .then(response => response.json())
-            .then(data => {
-                const cpuUsage = data.attributes.resources.cpu_absolute;
-                document.getElementById('cpu-usage').innerText = cpuUsage;
-            });
-        }
-    
-        // Update the CPU usage display every 5 seconds
-        setInterval(updateCpuUsage, 5000);
+      // Define a function to fetch the CPU usage and update the display
+      function updateCpuUsage() {
+        fetch('https://bluepixel-backend.onrender.com/server/cpu')
+        .then(response => response.json())
+        .then(data => {
+          const cpuUsage = data.cpuUsage;
+          document.getElementById('cpu-usage').innerText = cpuUsage;
+        })
+        .catch(error => console.error('Error fetching CPU usage:', error));
+      }
+
+      // Update the CPU usage display every 5 seconds
+      setInterval(updateCpuUsage, 5000);
+
     </script>
     
   </body>
