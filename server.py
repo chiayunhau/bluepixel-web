@@ -3,7 +3,7 @@ import requests
 import json
 
 # Set the API key and API URL
-api_key = 'ptlc_tTx1NlJbCmfVRXvzJu6O0t76E9j7kGnXZOrWruZRMmA'
+api_key = os.environ.get('PTERODACTYL_API_KEY')
 api_url = 'https://ctrl.cxmpute.com/api/client'
 
 
