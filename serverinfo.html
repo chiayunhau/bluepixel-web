@@ -133,10 +133,11 @@
     <script>
         // Define a function to fetch the CPU usage and update the display
         function updateCpuUsage() {
-            fetch('http://localhost:8000/cpu-usage')
+            fetch('https://ctrl.cxmpute.com/api/client/servers/b3683f94-64d0-42ce-94ed-735fe30a8540/resources')
             .then(response => response.json())
             .then(data => {
-              document.getElementById('cpu-usage').innerText = data;
+                const cpuUsage = data.attributes.resources.cpu_absolute;
+                document.getElementById('cpu-usage').innerText = cpuUsage;
             });
         }
   
