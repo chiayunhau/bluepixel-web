@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Server Info</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+      body {
+        background-color: #222;
+        color: #fff;
+      }
+      
+      .jumbotron {
+        background-color: #333;
+        color: #fff;
+      }
+      
+      .navbar {
+        background-color: #333;
+        color: #fff;
+      }
+      
+      .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+      
+      .btn-primary:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+      }
+      
+      .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+      }
+      
+      .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+      }
+      
+      header {
+        padding-bottom: 20px;
+      }
+      
+      .dark-mode {
+        background-color: #222;
+        color: #fff;
+      }
+      
+      .back-icon {
+        font-size: 24px;
+        margin-right: 10px;
+      }
+      
+      h1 {
+        font-size: 48px;
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 50px;
+      }
+      
+      .box {
+        background-color: #333;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+      }
+      
+      .box h2 {
+        color: #fff;
+        font-size: 36px;
+        margin-top: 0;
+      }
+      
+      .box p {
+        color: #fff;
+        font-size: 18px;
+      }
+      
+      .box a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 24px;
+        display: block;
+        margin-top: 20px;
+      }
+      
+      .box a:hover {
+        color: #007bff;
+      }
+    </style>
+  </head>
+  <body class="dark-mode">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Server Info</a>
+        <a class="navbar-brand" href="index.html">Back To Home</a>
+      </nav>
+    </header>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-6">
+            <div class="box">
+                <h2>Server Information</h2>
+                <p>Server State: <span id="server-state"></span></p>
+                <button class="btn btn-primary" onclick="startServer()">Start Server</button>
+              </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box">
+                <h2>Server Resources</h2>
+                <p>CPU Usage: <span id="cpu-usage"></span></p>
+                <p>RAM Usage: <span id="ram-usage"></span></p>
+                <p>Disk Usage: <span id="disk-usage"></span></p>
+                <p>Network Usage: <span id="network-usage"></span></p>
+              </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p>&copy; 2023 Server Info. All rights reserved.</p>
+        </div>
+      </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        // Define a function to fetch the CPU usage and update the display
+        function updateCpuUsage() {
+            fetch('http://localhost:8000/cpu-usage')
+            .then(response => response.json())
+            .then(data => {
+              document.getElementById('cpu-usage').innerText = data;
+            });
+        }
+  
+        // Update the CPU usage display every 5 seconds
+        setInterval(updateCpuUsage, 5000);
+    </script>
+  </body>
+</html>
