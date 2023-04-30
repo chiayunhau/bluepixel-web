@@ -1,0 +1,93 @@
+<!-- transfer.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transfer Cash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap.css">
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+        }
+        .container-box {
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        label, input[type="submit"] {
+            color: #fff;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        input[type="submit"]:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="container-box">
+            <h1>Transfer Cash</h1>
+            <form>
+                <div class="form-group">
+                    <label for="currentPassword">Current Password:</label>
+                    <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="recipient">Recipient Username:</label>
+                    <input type="text" class="form-control" id="recipient" name="recipient" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount:</label>
+                    <input type="number" class="form-control" id="amount" name="amount" required>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Transfer">
+                <button class="btn btn-primary ms-2"><a href="dashboard.html" style="color: white; text-decoration: none;">Back to management</a></button>
+            </form>
+        </div>
+    </div>
+    <script>
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', transferCash);
+
+        function transferCash(event) {
+            event.preventDefault();
+            const currentPassword = form.elements.currentPassword.value;
+            const recipient = form.elements.recipient.value;
+            const amount = form.elements.amount.value;
+            console.log(`Transferring ${amount} to ${recipient} (password: ${currentPassword})`);
+            
+            const transferData = {
+            from_password: currentPassword,
+            to_username: recipient,
+            amount: amount
+            };
+
+            fetch('https://bluepixel-backend.onrender.com//transfer_cash', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(transferData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Transfer successful:', data);
+            })
+            .catch(error => {
+                console.error('Transfer failed:', error);
+            });
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper-core.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+Z6QL9UvYjZEKSeFQ9boh4L/7UJpVoB" crossorigin="anonymous"></script>
+</body>
+</html>

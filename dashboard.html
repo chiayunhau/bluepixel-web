@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>In Game Currency Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        /* Dark mode styles */
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+        
+        .container {
+            background-color: #161b22;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .btn-primary {
+            background-color: #388bfd;
+            border-color: #388bfd;
+        }
+        
+        .btn-primary:hover {
+            background-color: #277fe0;
+            border-color: #277fe0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">In Game Currency Management</h1>
+        <p class="text-center">Hiya, <span id="username"></span>!</p>
+        
+        <div class="container mt-4">
+            <h3>Currency Management</h3>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Current Cash: <span id="cash"></span></p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <button class="btn btn-primary"><a href="transfer.html" style="color: white; text-decoration: none;">Pay / Transfer</a></button>
+                    <button class="btn btn-primary ms-2"><a href="index.html" style="color: white; text-decoration: none;">Log Out</a></button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Admin section, only visible if the user is an admin -->
+        <div class="container mt-4 d-none" id="admin-section">
+            <h3>Admin</h3>
+            <hr>
+            <div class="text-center">
+                <button class="btn btn-primary">Go to Admin Panel!</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
+    <script>
+        // Get the username and cash value from the backend and update the UI
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+
+        fetch(`https://bluepixel-backend.onrender.com//api/balance/${username}`)
+        .then(response => response.text())
+        .then(data => {
+            // Update the UI with the balance data
+            document.getElementById("cash").innerText = data;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+        document.getElementById("username").innerText = username;
+        
+        fetch(`http://localhost:5000/api/admin/${username}`)
+        .then(response => response.json())
+        .then(data => {
+            // Update the UI with the admin status
+            if (data) {
+                document.getElementById("admin-section").classList.remove("d-none");
+            }
+            })
+        .catch(error => {
+            console.error(error);
+        });
+
+    </script>
+</body>
+</html>
+    
