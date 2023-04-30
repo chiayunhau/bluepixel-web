@@ -66,8 +66,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
     <script>
         // Get the username and cash value from the backend and update the UI
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username');
+        const username = localStorage.getItem('username');
 
         fetch(`https://bluepixel-backend.onrender.com//api/balance/${username}`)
         .then(response => response.text())
