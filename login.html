@@ -58,7 +58,7 @@
                 const parsedData = JSON.parse(dataString);
                 // Set the global variable to the value of the "username" key
                 const username = parsedData.username;
-                localStorage.setItem('username', username);
+                window.location.href = `/dashboard.html?username=${username}`;
             })
             .catch(error => {
                 // handle any errors here
