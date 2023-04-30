@@ -80,7 +80,7 @@
         });
         document.getElementById("username").innerText = username;
         
-        fetch(`http://localhost:5000/api/admin/${username}`)
+        fetch(`https://bluepixel-backend.onrender.com/api/admin/${username}`)
         .then(response => response.json())
         .then(data => {
             // Update the UI with the admin status
