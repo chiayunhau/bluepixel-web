@@ -116,13 +116,12 @@
                 <p>CPU Usage: <span id="cpu-usage"></span></p>
                 <p>RAM Usage: <span id="ram-usage"></span></p>
                 <p>Disk Usage: <span id="disk-usage"></span></p>
-                <p>Network Usage: <span id="network-usage"></span></p>
               </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <p>&copy; 2023 Server Info. All rights reserved.</p>
+          <p>&copy; 2023 Bluepixel Website. All rights reserved.</p>
         </div>
       </div>
     </main>
@@ -131,18 +130,30 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
-      function updateCpuUsage() {
-        fetch('https://bluepixel-backend.onrender.com/server/cpu')
+      function updateUsage() {
+        fetch('https://bluepixel-backend.onrender.com/cpu-usage')
           .then(response => response.json())
           .then(data => {
-            const cpuUsage = data.cpu_usage.toFixed(2) + '%';
-            const cpuLimit = '200%';
-            document.getElementById('cpu-usage').textContent = cpuUsage + ' / ' + cpuLimit;
+            document.getElementById('cpu-usage').textContent = data.cpu_usage;
+          })
+          .catch(error => console.error(error));
+
+        fetch('https://bluepixel-backend.onrender.com/ram-usage')
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('ram-usage').textContent = data.ram_usage;
+          })
+          .catch(error => console.error(error));
+
+        fetch('https://bluepixel-backend.onrender.com/disk-usage')
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('disk-usage').textContent = data.disk_usage;
           })
           .catch(error => console.error(error));
       }
 
-      setInterval(updateCpuUsage, 500);
+      window.onload = updateUsage;
     </script>
   
     
