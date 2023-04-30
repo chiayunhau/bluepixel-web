@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Server Info</title>
-    <link rel="icon" href="https://cdn.discordapp.com/attachments/847253854918672394/1102074120251920464/BlueBerri_SMP_Logo.png">
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/847253854918672394/1102081888295845939/removal.ai_tmp-644de7aa0e607.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
       body {
@@ -126,11 +126,70 @@
         </div>
       </div>
     </main>
+
+<!-- Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="successModalLabel">Server Startup</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Server is starting now, please wait 1 - 2 minutes for it to startup. Meanwhile go get a cup of coffee!
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="failure-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg-dark text-light">
+      <div class="modal-header">
+        <h5 class="modal-title">Failure</h5>
+        <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>The backend is such a failure. Contact chia for assistance asap.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
+    function startServer(){
+      fetch('https://bluepixel-backend.onrender.com/start-server')
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // show success modal
+          $('#success-modal').modal('show');
+        } else {
+          // show failure modal
+          $('#failure-modal').modal('show');
+       }
+      })
+    }
+
+
+
       function updateUsage() {
         fetch('https://bluepixel-backend.onrender.com/state')
           .then(response => response.json())
