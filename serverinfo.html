@@ -135,7 +135,7 @@
         fetch('https://bluepixel-backend.onrender.com/state')
           .then(response => response.json())
           .then(data => {
-            document.getElementById('server-state').textContent = data.current-state;
+            document.getElementById('server-state').textContent = data.current_state;
           })
           .catch(error => console.error(error));
 
