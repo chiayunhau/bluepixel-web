@@ -179,13 +179,16 @@
       .then(response => response.json())
       .then(data => {
         if (data.success) {
-          // show success modal
-          $('#success-modal').modal('show');
+          $('#successModal').modal('show');
         } else {
-          // show failure modal
           $('#failure-modal').modal('show');
-       }
+        }   
       })
+      .catch(error => {
+        console.error('Error:', error);
+        $('#failure-modal').modal('show');
+      });
+
     }
 
 
