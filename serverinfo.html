@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Server Info</title>
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/847253854918672394/1102074120251920464/BlueBerri_SMP_Logo.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
       body {
@@ -113,9 +114,9 @@
         <div class="col-md-6">
             <div class="box">
                 <h2>Server Resources</h2>
-                <p>CPU Usage: <span id="cpu-usage"></span> %</p>
-                <p>RAM Usage: <span id="ram-usage"></span>MB</p>
-                <p>Disk Usage: <span id="disk-usage"></span>MB</p>
+                <p>CPU Usage: <span id="cpu-usage"></span> % / 200%</p>
+                <p>RAM Usage: <span id="ram-usage"></span>MB / 3072MB</p>
+                <p>Disk Usage: <span id="disk-usage"></span>MB / 20480MB</p>
               </div>
         </div>
       </div>
@@ -131,6 +132,13 @@
 
     <script>
       function updateUsage() {
+        fetch('https://bluepixel-backend.onrender.com/state')
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('server-state').textContent = data.current-state;
+          })
+          .catch(error => console.error(error));
+
         fetch('https://bluepixel-backend.onrender.com/cpu-usage')
           .then(response => response.json())
           .then(data => {
