@@ -69,6 +69,10 @@
         // Get the username and cash value from the backend and update the UI
         const username = localStorage.getItem("username")
 
+        if(username == null){
+            window.location.href = `https://chiayunhau.github.io/bluepixel-web/login.html`;
+        }
+
         fetch(`https://bluepixel-backend.onrender.com//api/balance/${username}`)
         .then(response => response.text())
         .then(data => {
