@@ -59,8 +59,10 @@
                 const parsedData = JSON.parse(dataString);
                 // Set the global variable to the value of the "username" key
                 const username = parsedData.username;
-                if(username !== null)
-                window.location.href = `https://chiayunhau.github.io/bluepixel-web/dashboard.html?username=${username}`;
+                localStorage.setItem("username", username)
+                if(localStorage.getItem("username") !== null){
+                    window.location.href = `https://chiayunhau.github.io/bluepixel-web/dashboard.html`;
+                }
             })
             .catch(error => {
                 // handle any errors here
