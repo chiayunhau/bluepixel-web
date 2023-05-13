@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-md-6 text-end">
                     <button class="btn btn-primary"><a href="transfer.html" style="color: white; text-decoration: none;">Pay / Transfer</a></button>
-                    <button class="btn btn-primary ms-2"><a href="index.html" style="color: white; text-decoration: none;">Log Out</a></button>
+                    <button class="btn btn-primary ms-2", id="logout"><a href="index.html" style="color: white; text-decoration: none;">Log Out</a></button>
                 </div>
             </div>
         </div>
@@ -95,6 +95,11 @@
         .catch(error => {
             console.error(error);
         });
+
+
+        document.getElementById('logout').addEventListener('click', function(){
+            localStorage.clear();
+        })
 
     </script>
 </body>
